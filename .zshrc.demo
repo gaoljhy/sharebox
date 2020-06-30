@@ -1,0 +1,63 @@
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+export ZSH="/Users/levypan/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+# >  History config
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
+# > zsh插件
+# plugins=()
+
+# > zplug 安装插件
+zplug "powerlevel9k/powerlevel9k", as:theme, depth:1
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/osx",   from:oh-my-zsh
+zplug "plugins/vscode",   from:oh-my-zsh
+zplug "plugins/z",   from:oh-my-zsh
+zplug "plugins/d",   from:oh-my-zsh
+zplug "plugins/extract",   from:oh-my-zsh
+zplug "plugins/git-open",   from:oh-my-zsh
+zplug "plugins/sudo",   from:oh-my-zsh
+zplug "plugins/cp",   from:oh-my-zsh
+zplug "plugins/web-search",   from:oh-my-zsh
+zplug "plugins/rand-quote", from:oh-my-zsh
+zplug "plugins/history-substring-search",  from:oh-my-zsh
+zplug "plugins/command-not-found",   from:oh-my-zsh
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "voronkovich/gitignore.plugin.zsh"
+
+# > Key binds 键盘绑定
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey ';' autosuggest-accept
+
+# > 主题 powerlevel9k
+ZSH_THEME="powerlevel9k/powerlevel9k"
+# > 配置主题
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( os_icon ssh dir  dir_writable  newline  vcs  )
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+
+# > zplug 安装检查
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# > zplug 安装
+zplug load
+
+# 防止 copy 的时候覆盖已存在的文件, 带上 i 选项，文件已存在的时候，会提示，需要确认才能 copy
+alias cp="cp -I"
